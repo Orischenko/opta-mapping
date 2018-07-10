@@ -41,6 +41,10 @@ const eventsMapping = () => {
                 const match = `${event.homeName} v ${event.awayName}`;
                 const extEvent = _.find(ext, {'Match': match});
 
+                if (!extEvent) {
+                    console.log( `---> Event not matched ${match}: ${event.eventId}` );
+                }
+
                 return {
                     enetParticipantId: event.eventId,
                     extParticipantId: extEvent ? +extEvent['Match ID'] : '-',

@@ -40,6 +40,10 @@ const teamMapping = () => {
             const body = enet.map(player => {
                 const extPlayer = _.find(ext, {'Player name': player.name});
 
+                if (!extPlayer) {
+                    console.log( `---> Player not matched ${player.name}: ${player.id}` );
+                }
+
                 return {
                     enetParticipantId: player.id,
                     extParticipantId: extPlayer ? +extPlayer['Player ID'] : '-',
