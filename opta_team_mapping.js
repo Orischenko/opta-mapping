@@ -44,9 +44,7 @@ const teamMapping = () => {
             const body = enet.map(player => {
                 const extPlayer = _.find(ext, {'Player name': player.name});
 
-                if (!extPlayer) {
-                    console.log( `---> Player not matched ${player.name}: ${player.id}` );
-                }
+                if (!extPlayer) console.log( `---> Ext player not matched ${player.name}: ${player.id}` );
 
                 return {
                     enetParticipantId: player.id,
@@ -56,6 +54,11 @@ const teamMapping = () => {
                     source: SOURCE,
                     extra : 'Football'
                 }
+            });
+
+            ext.forEach(player => {
+                const enetPlayer = _.find(enet, {name: player['Player name']});
+                if (!enetPlayer) console.log( `---> Enet player not matched ${player['Player name']}: ${player['Player ID']}` );
             });
 
             postData(body);
