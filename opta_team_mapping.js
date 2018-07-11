@@ -28,7 +28,11 @@ const postData = body => {
 const teamMapping = () => {
     const csvFilePath =`./src/csv/${TEAM_ID}.csv`;
     const extMemebers = csv().fromFile(csvFilePath).then(jsonObj => jsonObj);
-    const enetMemebers = fetch(`http://ss2.tjekscores.dk/teams/${TEAM_ID}/members?locale=da`).then(res => res.json()).then(res => res.players );
+    const enetMemebers = fetch(`http://ss2.tjekscores.dk/teams/${TEAM_ID}/members?locale=da`).then(res => res.json())
+        .then(res => res.players)
+        .catch(e => {
+            console.error(e);
+        });
 
     Promise.all([extMemebers, enetMemebers])
         .then(res => {
@@ -58,7 +62,7 @@ const teamMapping = () => {
             //console.log( '--->', 'body', body );
         })
         .catch(function (err) {
-            log.err(err);
+            console.error(err);
             res.status(500).send({});
         });
 };
